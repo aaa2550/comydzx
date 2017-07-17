@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        
+ 
+	<!-- <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"> 
+		<property name="supportedMediaTypes"> <list> <value>text/html;charset=UTF-8</value> 
+		<value>text/plain;charset=UTF-8</value> </list> </property> </bean> -->
+<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射,解决@ResponseBody乱码问题, 需要在annotation-driven和component-scan之前,否则乱码问题同样无法解决 -->  
+<!--Spring3.1推荐使用RequestMappingHandlerAdapter -->  
+
+  <!--  必须放在<mvc:annotation-driven />前面 -->  
+	<bean
+		class="jmind.core.spring.RequestMappingHandlerAdapter">
+		 <property name="webBindingInitializer">  
+                <bean class="jmind.core.spring.SpringBinder" />  
+            </property>  
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="com.letv.commons.mvc.MappingFastjsonHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/plain;charset=UTF-8</value>
+							<value>application/json;charset=UTF-8</value>	
+						</list>
+					</property>
+				</bean>
+					
+			</list>
+		</property>
+		<property name="customArgumentResolvers">
+			<list>
+				<bean class="com.letv.commons.mvc.RequestAttributeArgumentResolver" />
+			</list>
+		</property>
+		<property name="wrapReturnValueHandlers">
+			<list>
+				<bean class="com.letv.commons.mvc.I18nMethodReturnValueHandler" />
+			</list>
+		</property>
+	
+	</bean>
+
+
+	<!--解决乱码问题 -->
+<!--  
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/plain;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+			<bean
+				class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+					
+					</list>
+				</property>
+			</bean>		   
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+-->
+	
+<!-- 文件上传配置 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+		<property name="maxUploadSize">
+			<value>32505856</value>
+			<!-- 上传文件大小限制为31M，31*1024*1024 -->
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+			
+		<!--  
+		<property name="uploadTempDir">
+			<value>/letv/data/uploadTemp</value>
+		</property>
+		-->
+		
+		
+	</bean>
+<!-- 使静态文件可以直接访问 -->
+	<mvc:resources location="/static/" mapping="/static/**" />
+    <mvc:resources location="*.ico" mapping="/**" />
+
+
+
+	
+<mvc:annotation-driven />
+
+
+
+
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="cache" value="true" />
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- CAPTCHA -->
+	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+		<property name="config">
+			<bean class="com.google.code.kaptcha.util.Config">
+				<constructor-arg>
+					<props>
+						<prop key="kaptcha.border">no</prop>
+						<prop key="kaptcha.border.color">105,179,90</prop>
+						<prop key="kaptcha.textproducer.font.color">red</prop>
+						<prop key="kaptcha.image.width">90</prop>
+						<prop key="kaptcha.textproducer.font.size">30</prop>
+						<prop key="kaptcha.image.height">30</prop>
+						<prop key="kaptcha.textproducer.char.length">4</prop>
+						<prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+					</props>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+
+    <!-- 拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+		    <mvc:mapping path="/**/*.json"   /> 
+			<mvc:mapping path="/**/*.do"   />
+            <mvc:mapping path="/mini/*"   />
+			<mvc:exclude-mapping path="/static/**"/>
+			<bean class="com.letv.boss.interceptors.AuthInterceptor"> 
+				
+			</bean>
+		</mvc:interceptor>
+			<!-- 性能拦截器 -->
+		<mvc:interceptor>
+		    <mvc:mapping path="/**" />
+		    <mvc:exclude-mapping path="/static/**"/>
+			<bean class="com.letv.commons.aop.PerformanceInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+		    <mvc:mapping path="/**" />
+		    <mvc:exclude-mapping path="/static/**"/>
+			<bean class="com.letv.boss.interceptors.InternationalInterceptor" />
+		</mvc:interceptor>
+    </mvc:interceptors>
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<context:component-scan base-package="com.letv.boss.controller" />
+
+</beans>
