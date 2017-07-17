@@ -1,4 +1,4 @@
-package com.ydzx.manager;
+package com.ydzx.manager.controller;
 
 import java.util.List;
 

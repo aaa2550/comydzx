@@ -1,4 +1,4 @@
-package com.ydzx.manager.sys;
+package com.ydzx.manager.controller.sys;
 
 import java.util.List;
 import java.util.Map;

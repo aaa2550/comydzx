@@ -1,4 +1,4 @@
-package com.ydzx.manager;
+package com.ydzx.manager.controller;
 
 import com.letv.boss.core.log.service.UserOperateLogService;
 import com.letv.boss.enums.Language;

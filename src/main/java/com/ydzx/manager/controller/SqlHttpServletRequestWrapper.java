@@ -1,4 +1,4 @@
-package com.ydzx.manager;
+package com.ydzx.manager.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;

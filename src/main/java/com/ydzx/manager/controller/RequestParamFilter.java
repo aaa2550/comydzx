@@ -1,4 +1,4 @@
-package com.ydzx.manager;
+package com.ydzx.manager.controller;
 
 import com.letv.boss.pojo.CodeMsg;
 import org.slf4j.Logger;
