@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <bean id="serviceLocator" class="jmind.core.spring.SpringBeanLocator" factory-method="getInstance"/>
+    <bean id="springBean" class="com.ydzx.commons.SpringBean"/>
 
     <!-- 事务 -->
     <bean id="mangoTransactionAspect" class="com.letv.commons.aop.MangoTransactionAspect"/>
