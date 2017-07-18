@@ -1,6 +1,6 @@
 package com.ydzx.pojo;
 
-import com.letv.boss.enums.CodeType;
+import com.ydzx.enums.CodeType;
 
 /**
  * 用户后台向前台返回的JSON对象
@@ -55,8 +55,9 @@ public class CodeMsg extends Pojo {
         return data;
     }
 
-    public void setData(Object data) {
+    public CodeMsg setData(Object data) {
         this.data = data;
+        return this;
     }
 
     public int getCode() {
@@ -72,12 +73,14 @@ public class CodeMsg extends Pojo {
         return code == SUCCESS_CODE;
     }
 
-    public void setCode(int code) {
+    public CodeMsg setCode(int code) {
         this.code = code;
+        return this;
     }
 
-    public void setMsg(String msg) {
+    public CodeMsg setMsg(String msg) {
         this.msg = msg;
+        return this;
     }
 
 }

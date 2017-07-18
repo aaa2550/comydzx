@@ -1,13 +1,11 @@
 package com.ydzx.commons;
 
-import com.google.common.base.Verify;
 import com.ydzx.pojo.User;
 import com.ydzx.service.BossUserService;
 import com.ydzx.util.CookieUtil;
 import com.ydzx.util.DataUtil;
 import com.ydzx.util.IPUtil;
 import com.ydzx.util.MD5Util;
-import jdk.nashorn.internal.runtime.GlobalConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

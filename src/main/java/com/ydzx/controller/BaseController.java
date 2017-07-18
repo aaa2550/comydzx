@@ -1,10 +1,12 @@
 package com.ydzx.controller;
 
+import com.ydzx.commons.Consts;
 import com.ydzx.commons.LoginHelper;
 import com.ydzx.pojo.CodeMsg;
 import com.ydzx.pojo.User;
 import com.ydzx.pojo.UserOperateLog;
 import com.ydzx.service.UserOperateLogService;
+import com.ydzx.util.RequestUtil;
 import jdk.nashorn.internal.runtime.GlobalConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,15 +87,10 @@ public class BaseController {
         }
     }
 
-    protected String language(String key, HttpServletRequest request) {
-        Language language = LoginHelper.getLanguage(request);
-        return InternationalUtil.INSTANCE.getInternationalConfig(language).get(key);
-    }
-
     @ExceptionHandler(Throwable.class)
     public void handleException(Throwable e, final HttpServletRequest request, final HttpServletResponse response) {
         response.setContentType("application/json;charset=UTF-8");
-        response.setCharacterEncoding(GlobalConstants.ENCODE);
+        response.setCharacterEncoding(Consts.ENCODE);
         logger.error("Global-error url=" + RequestUtil.getURL(request), e);
         String msg = e.getMessage();
         String s;
@@ -104,7 +101,7 @@ public class BaseController {
             s = new CodeMsg(9999, e.getMessage()).toString();
         }
         try {
-            request.setCharacterEncoding(GlobalConstants.ENCODE);
+            request.setCharacterEncoding(Consts.ENCODE);
             response.getWriter().write(s);
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -113,35 +110,8 @@ public class BaseController {
         e.printStackTrace();
     }
 
-    protected <T> void export(String title, List<T> list, HttpServletRequest request, HttpServletResponse response, ObjectColumnsParser<T> objectColumnsParser) {
-		/*if (CollectionUtils.isEmpty(list)) {
-			return;
-		}*/
-        export(request, response, title, Excel.Version.xlsx, title, list, objectColumnsParser);
-    }
-
-    public <T> void export(HttpServletRequest request, HttpServletResponse response, String fileName, Excel.Version version, String sheetName, List<T> list, ObjectColumnsParser<T> objectColumnsParser) {
-        RequestUtil.setExcelHeader(fileName.replaceAll(" ", "_") + "." + version.name(), request, response);
-        ServletOutputStream out = null;
-        try {
-            out = response.getOutputStream();
-            Workbook e = new StrategyXlsxExcel().exportExcel(sheetName, list, objectColumnsParser);
-            if(e != null) {
-                e.write(out);
-            }
-        } catch (UnsupportedEncodingException var18) {
-            throw new RuntimeException(var18);
-        } catch (Exception var19) {
-            throw new RuntimeException(var19);
-        } finally {
-            try {
-                out.flush();
-                out.close();
-            } catch (Exception var17) {
-                throw new RuntimeException(var17);
-            }
-        }
-
+    protected CodeMsg errorCodeMsg() {
+        return new CodeMsg();
     }
 
 }

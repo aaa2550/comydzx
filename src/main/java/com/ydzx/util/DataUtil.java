@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
@@ -17,6 +18,10 @@ public class DataUtil {
 
     public static boolean isEmpty(String str) {
         return StringUtils.isEmpty(str);
+    }
+
+    public static boolean isEmpty(String... str) {
+        return str != null && Arrays.asList(str).stream().allMatch(e->isEmpty(e));
     }
 
     public static boolean isEmpty(Collection collection) {
@@ -38,7 +43,7 @@ public class DataUtil {
 
     public static String encode(String str) {
         try {
-            return URLEncoder.(str, Consts.ENCODE);
+            return URLEncoder.encode(str, Consts.ENCODE);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

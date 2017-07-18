@@ -12,7 +12,7 @@ import java.util.Enumeration;
  */
 public class IPUtil {
 
-    public static String requestIP(HttpServletRequest httpServletRequest) {
+    public static String getRequestIP(HttpServletRequest httpServletRequest) {
         String remoteAddr = httpServletRequest.getRemoteAddr();
         String forwarded = httpServletRequest.getHeader("X-Forwarded-For");
         String realIp = httpServletRequest.getHeader("X-Real-IP");
@@ -37,7 +37,7 @@ public class IPUtil {
         return ip;
     }
 
-    public static String localIP() {
+    public static String getLocalIP() {
         Enumeration allNetInterfaces = null;
         try {
             allNetInterfaces = NetworkInterface.getNetworkInterfaces();
