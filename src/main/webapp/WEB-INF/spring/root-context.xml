@@ -13,47 +13,20 @@
     <bean id="springBean" class="com.ydzx.commons.SpringBean"/>
 
     <!-- 事务 -->
-    <bean id="mangoTransactionAspect" class="com.letv.commons.aop.MangoTransactionAspect"/>
-    <bean id="cacheAspect" class="com.letv.commons.aop.CacheAspect"/>
+    <bean id="mangoTransactionAspect" class="com.ydzx.mango.MangoTransactionAspect"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     <aop:config expose-proxy="true"/>
 
 
-    <context:component-scan base-package="com.letv.boss.core"/>
-    <context:component-scan base-package="com.letv.share.helpers"/>
+    <context:component-scan base-package="com.ydzx.service"/>
 
-    <context:component-scan base-package="com.letv.boss.hades" name-generator="com.letv.commons.annotation.SpringPackageBeanNameGenerator">
-
-    </context:component-scan>
-    <context:component-scan base-package="com.letv.share" name-generator="com.letv.commons.annotation.SpringPackageBeanNameGenerator"
-                            use-default-filters="false">
-    <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-    </context:component-scan>
-    <context:component-scan base-package="com.letv.boss.stat" name-generator="com.letv.commons.annotation.SpringPackageBeanNameGenerator">
-    </context:component-scan>
-
-    <bean id="shareServiceProperties"
+    <bean id="serviceProperties"
           class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
             <list>
-                <value>classpath*:share-service.properties</value>
+                <value>classpath*:service.properties</value>
             </list>
         </property>
     </bean>
-
-
-    <!-- dao扫瞄 -->
-    <bean class="com.letv.commons.mango.MangoBeanFactoryPostProcessor">
-        <property name="locationPatterns">
-            <list>
-                <value>classpath*:com/letv/boss/core/**/*Dao.class</value>
-                <value>classpath*:com/letv/boss/hades/**/*Dao.class</value>
-                <value>classpath*:com/letv/boss/stat/**/*Dao.class</value>
-                <value>classpath*:com/letv/share/dao/**/*DAO.class</value>
-                <value>classpath*:com/letv/share/rebate/**/*Dao.class</value>
-            </list>
-        </property>
-    </bean>
-
 
 </beans>
