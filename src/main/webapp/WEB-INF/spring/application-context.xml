@@ -29,4 +29,30 @@
         </property>
     </bean>
 
+    <bean id="dsf" class="org.jfaster.mango.datasource.SimpleDataSourceFactory">
+        <property name="dataSource">
+            <bean class="org.jfaster.mango.datasource.DriverManagerDataSource">
+                <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://localhost:3306/mango_example" />
+                <property name="username" value="root" />
+                <property name="password" value="root" />
+            </bean>
+        </property>
+    </bean>
+
+    <!-- 配置mango对象 -->
+    <bean id="mango" class="org.jfaster.mango.operator.Mango" factory-method="newInstance">
+        <property name="dataSourceFactory" ref="dsf" />
+    </bean>
+
+    <!-- 配置扫描使用@DB注解修饰的DAO类 -->
+    <bean class="org.jfaster.mango.plugin.spring.MangoDaoScanner">
+        <property name="packages">
+            <list>
+                <!-- 扫描包名 -->
+                <value>com.ydzx.dao</value>
+            </list>
+        </property>
+    </bean>
+
 </beans>
