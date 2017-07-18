@@ -6,26 +6,21 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.letv.boss.pojo.User;
-import com.letv.commons.annotation.RequestAttribute;
-import jmind.core.util.CollectionsUtil;
-import jmind.core.util.GlobalConstants;
-
+import com.ydzx.controller.BaseController;
+import com.ydzx.pojo.CodeMsg;
+import com.ydzx.pojo.Role;
+import com.ydzx.pojo.Tree;
+import com.ydzx.pojo.User;
+import com.ydzx.service.BossUserService;
+import com.ydzx.service.ResourceService;
+import com.ydzx.service.RoleService;
+import com.ydzx.util.DataUtil;
+import jdk.nashorn.internal.runtime.GlobalConstants;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.google.common.collect.Lists;
-import com.letv.boss.controller.BaseController;
-import com.letv.boss.core.sys.service.BossUserService;
-import com.letv.boss.core.sys.service.ResourceService;
-import com.letv.boss.core.sys.service.RoleService;
-import com.letv.boss.pojo.CodeMsg;
-import com.letv.boss.pojo.Role;
-import com.letv.boss.pojo.Tree;
-import com.letv.commons.util.KeyUtil;
+import sun.security.util.KeyUtil;
 
 @RequestMapping("/role")
 @Controller
@@ -50,8 +45,8 @@ public class RoleController extends BaseController {
         List<Role> list = roleService.list();
         Map<Integer, String> resources = resourceService.getResources();
         for (Role r : list) {
-            List<Integer> rids = CollectionsUtil.asIntListGtZero(r.getRids(), GlobalConstants.COMMA);
-            r.setRidNames((KeyUtil.getValues(rids, resources)));
+            List<Integer> rids = DataUtil.asIntListGtZero(r.getRids());
+            r.setRidNames((DataUtil.getValues(rids, resources)));
         }
         return list;
     }
@@ -83,7 +78,7 @@ public class RoleController extends BaseController {
 
     @RequestMapping("/edit.json")
     @ResponseBody
-    public CodeMsg edit(Role role, @RequestAttribute(value = "sessionInfo", notNull = true) User user) {
+    public CodeMsg edit(Role role, @RequestAttribute(value = "sessionInfo") User user) {
         roleService.save(role);
         userLog(user, "更改权限", role.toString());
         return CodeMsg.SUCCESS;
@@ -91,7 +86,7 @@ public class RoleController extends BaseController {
 
     @RequestMapping("/grant.json")
     @ResponseBody
-    public CodeMsg grant(Role role, @RequestAttribute(value = "sessionInfo", notNull = true) User user) {
+    public CodeMsg grant(Role role, @RequestAttribute(value = "sessionInfo") User user) {
         roleService.grant(role);
         // 清空用户缓存，角色授权及时生效
         userService.clearCacheByRid(role.getId());

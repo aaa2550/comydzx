@@ -13,7 +13,7 @@ import java.util.List;
  * @author shaoxiangfei
  *
  */
-@DB(dataSource = Consts.DB_LETV_BOSS, table = "user_operate_log")
+@DB(table = "user_operate_log")
 public interface UserOperateLogDao {
 
     static final String COLUMNS = "operate_uid, operater, operate_ip, operate_time, " + "operation, ext";

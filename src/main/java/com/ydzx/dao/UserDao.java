@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author ash
  */
-@DB(dataSource = Consts.DB_LETV_BOSS, table = "user")
+@DB(table = "user")
 public interface UserDao {
 
     static final String SEARCH = " from #table where 1=1  " + " #if(:1!=null ) and name like :1 #end"

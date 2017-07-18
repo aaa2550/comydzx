@@ -8,7 +8,7 @@ import org.jfaster.mango.annotation.SQL;
 import java.util.List;
 import java.util.Set;
 
-@DB(dataSource = Consts.DB_LETV_BOSS, table = "resources")
+@DB(table = "resources")
 public interface ResourceDao {
 
     @SQL("select * from #table order by seq")

@@ -25,7 +25,7 @@ public class BaseController {
     @Resource
     private UserOperateLogService userOperateLogService;
 
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
+    final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * @deprecated
@@ -35,8 +35,7 @@ public class BaseController {
      *}</pre>
      *
      */
-    @Deprecated
-    protected User getLoginUser(final HttpServletRequest request) {
+    protected User getLoginUser(HttpServletRequest request) {
         return LoginHelper.getLoginUser(request);
     }
 
@@ -51,7 +50,6 @@ public class BaseController {
      *}</pre>
      *
      */
-    @Deprecated
     protected String getLoginName(final HttpServletRequest request) {
         return LoginHelper.getLoginUser(request).getName();
     }

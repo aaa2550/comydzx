@@ -7,24 +7,20 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.letv.commons.annotation.RequestAttribute;
-import jmind.core.util.DataUtil;
-import jmind.core.util.RequestUtil;
-
+import com.ydzx.pojo.Tree;
+import com.ydzx.service.ResourceService;
+import com.ydzx.util.RequestUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
 import com.ydzx.controller.BaseController;
-import com.ydzx.manager.core.sys.service.ResourceService;
-import com.ydzx.manager.helper.LoginHelper;
 import com.ydzx.pojo.CodeMsg;
 import com.ydzx.pojo.Resources;
-import com.ydzx.manager.pojo.Tree;
 import com.ydzx.pojo.User;
-import com.letv.commons.util.InternationalUtil;
 
 @Controller
 @RequestMapping("/sys")
@@ -35,7 +31,7 @@ public class ResourceController extends BaseController {
 
     @RequestMapping("")
     public String resource(final HttpServletRequest request) {
-        this.getLoginUser(request);
+        getLoginUser(request);
         return "sys/resource";
     }
 
@@ -46,25 +42,17 @@ public class ResourceController extends BaseController {
         if ("all".equals(request.getParameter("t"))) {
             list = resourceService.list();
         } else {
-            User user = this.getLoginUser(request);
+            User user = getLoginUser(request);
             list = resourceService.listByUser(user);
         }
-        Language language = LoginHelper.getLanguage(request);
         List<Tree> trees = Lists.newArrayListWithExpectedSize(list.size());
         for (Resources r : list) {
             Tree tree = new Tree();
             tree.setId(r.getId());
             tree.setPid(r.getPid());
-            if (language == Language.en) {
-                tree.setText(DataUtil.isEmpty(r.getNameEn()) ? r.getName() : r.getNameEn());
-            } else if (language == Language.zh_hk) {
-                tree.setText(InternationalUtil.INSTANCE.getZhHK(r.getName()));
-            } else {
-                tree.setText(r.getName());
-            }
-
+            tree.setText(r.getName());
             tree.setIconCls(r.getIconCls());
-            Map<String, Object> attr = new HashMap<String, Object>();
+            Map<String, Object> attr = new HashMap<>();
             attr.put("url", r.getUrl());
             tree.setAttributes(attr);
             trees.add(tree);
@@ -76,19 +64,7 @@ public class ResourceController extends BaseController {
     @ResponseBody
     public List<Resources> list(final HttpServletRequest request) {
         this.getLoginUser(request);
-        List<Resources> list = resourceService.list();
-        Language language = LoginHelper.getLanguage(request);
-        if (language == Language.en) {
-            for (Resources r : list) {
-                if (!DataUtil.isEmpty(r.getNameEn()))
-                    r.setName(r.getNameEn());
-            }
-        } else if (language == Language.zh_hk) {
-            for (Resources r : list) {
-                r.setName(InternationalUtil.INSTANCE.getZhHK(r.getName()));
-            }
-        }
-        return list;
+        return resourceService.list();
     }
 
     @RequestMapping("edit_page")
@@ -116,7 +92,7 @@ public class ResourceController extends BaseController {
 
     @RequestMapping("delete.json")
     @ResponseBody
-    public CodeMsg delete(int id, @RequestAttribute(value = "sessionInfo", notNull = true) User user) {
+    public CodeMsg delete(int id, @RequestAttribute(value = "sessionInfo") User user) {
         Resources resources = resourceService.get(id);
         resourceService.delete(id);
         this.userLog(user, "删除菜单", resources.toString());

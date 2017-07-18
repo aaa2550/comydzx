@@ -1,14 +1,14 @@
 package com.ydzx.dao;
 
-import com.letv.boss.pojo.Role;
-import com.letv.commons.util.Consts;
+import com.ydzx.commons.Consts;
+import com.ydzx.pojo.Role;
 import org.jfaster.mango.annotation.DB;
 import org.jfaster.mango.annotation.ReturnGeneratedId;
 import org.jfaster.mango.annotation.SQL;
 
 import java.util.List;
 
-@DB(dataSource = Consts.DB_LETV_BOSS, table = "role")
+@DB(table = "role")
 public interface RoleDao {
 
     @SQL("select rids from #table where id in (#{:1})")
