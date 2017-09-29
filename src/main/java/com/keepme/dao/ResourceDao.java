@@ -36,6 +36,6 @@ public interface ResourceDao {
     int edit(Resources resource);
 
     @SQL(Consts.SQL_DELETE)
-    public int delete(int id);
+    int delete(int id);
 
 }

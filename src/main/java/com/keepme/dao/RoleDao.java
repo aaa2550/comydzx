@@ -12,27 +12,27 @@ import java.util.List;
 public interface RoleDao {
 
     @SQL("select rids from #table where id in (#{:1})")
-    public List<String> getResources(String ids);
+    List<String> getResources(String ids);
 
     @SQL("select rids from #table where id in (:1)")
-    public List<String> getResources(List<Integer> ids);
+    List<String> getResources(List<Integer> ids);
 
     @SQL("select * from #table order by seq")
-    public List<Role> list();
+    List<Role> list();
 
     @SQL("insert into #table(id,name,remark,seq,pid) values(:1.id,:1.name,:1.remark,:1.seq,:1.pid)")
     @ReturnGeneratedId
-    public int save(Role role);
+    int save(Role role);
 
     @SQL("update #table set name=:1.name,remark=:1.remark,seq=:1.seq,pid=:1.pid where id=:1.id")
-    public int update(Role role);
+    int update(Role role);
 
     @SQL("update #table set rids=:1.rids where id=:1.id")
-    public int grant(Role role);
+    int grant(Role role);
 
     @SQL(Consts.SQL_DELETE)
-    public int delete(int id);
+    int delete(int id);
 
     @SQL(Consts.SQL_GET)
-    public Role get(int id);
+    Role get(int id);
 }
