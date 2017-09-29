@@ -16,8 +16,8 @@ import java.util.List;
 public interface ProviderInfoDao {
 
     @ReturnGeneratedId
-    @SQL("insert into #table (create_time,update_time,company_name,type,name,province,city,address,linkman_name,linkman_tel,email,remark) " +
-            "values(now(),now(),:companyName,:type,:name,:province,:city,:address,:linkmanName,:linkmanTel,:email,:remark)")
+    @SQL("insert into #table (create_time,update_time,company_name,name,province,city,address,linkman_name,linkman_tel,email,remark) " +
+            "values(now(),now(),:companyName,:name,:province,:city,:address,:linkmanName,:linkmanTel,:email,:remark)")
     int add(ProviderInfo providerInfo);
 
     @SQL("select * from #table")
