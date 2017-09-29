@@ -233,3 +233,17 @@ CREATE TABLE `return_pay_info` (
   `voucher_species` varchar(50) NOT NULL COMMENT '凭证种类',
   `voucher_code` varchar(100) NOT NULL COMMENT '凭证号'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='收付款信息导入表';
+
+-- 返点详情表
+CREATE TABLE `rebates_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '修改时间',
+  `type` varchar(20) NOT NULL COMMENT '客户|供应商',
+  `start_time` datetime NOT NULL COMMENT '返点开始日期',
+  `end_time` datetime NOT NULL COMMENT '返点结束日期',
+  `rebates` decimal(10,2) NOT NULL COMMENT '返点',
+  `contract_id` int(11) NOT NULL COMMENT '合同编号',
+  `user_id` int(11) NOT NULL COMMENT '操作人ID',
+  `user_name` varchar(50) NOT NULL COMMENT '操作人名称'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='收付款信息导入表';
