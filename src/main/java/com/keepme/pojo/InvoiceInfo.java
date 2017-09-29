@@ -12,8 +12,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class InvoiceInfo extends Pojo {
 
-    private String id;  //
-    private String companyId;  //所属公司
+    private Integer id;  //
+    private Integer companyId;  //所属公司
     private String type;  //我司/客户/供应商
     private String taxpayerCode;  //纳税人识别号
     private String title;  //收票公司

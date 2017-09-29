@@ -165,16 +165,14 @@ CREATE TABLE `keepme_account_info` (
   `keepme_account_name` varchar(50) NOT NULL COMMENT '账户名称',
   `keepme_account_id` varchar(100) NOT NULL COMMENT '账户ID',
   `provider_id` int(11) NOT NULL COMMENT '供应商ID',
-  `provider_name` int(11) NOT NULL COMMENT '供应商名称',
-  `bank_account_id` int(11) NOT NULL COMMENT '银行账户主键',
+  `provider_name` varchar(20) NOT NULL COMMENT '供应商名称',
   `qq` varchar(20) NOT NULL COMMENT '绑定QQ',
   `industry` varchar(20) NOT NULL COMMENT '行业',
-  `app_id` varchar(20) NOT NULL COMMENT 'APPID',
   `generalize_link` varchar(200) NOT NULL COMMENT '推广链接',
   `services` varchar(50) NOT NULL COMMENT 'feed/分包/oCPA/DMP/联盟屏蔽/oCP留存/oCP订单',
   `subpackage` varchar(50) NOT NULL COMMENT '分包',
   `ocpa` varchar(50) NOT NULL COMMENT 'ocpa',
-  `pass_status` varchar(50) NOT NULL COMMENT '通过状态',
+  `pass_status` varchar(50) NOT NULL COMMENT '通过状态 未审核 已通过 未通过',
   `pass_time` datetime DEFAULT NULL COMMENT '通过时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='推广账户表';
 
@@ -186,9 +184,9 @@ CREATE TABLE `recharge_info` (
   `generalize_id` int(11) NOT NULL COMMENT '推广账户ID',
   `app_id` varchar(50) NOT NULL COMMENT 'APPID',
   `customer_id` int(11) NOT NULL COMMENT '客户ID',
-  `customer_name` int(11) NOT NULL COMMENT '客户名称',
+  `customer_name` varchar(150) NOT NULL COMMENT '客户名称',
   `provider_id` int(11) NOT NULL COMMENT '供应商ID',
-  `provider_name` int(11) NOT NULL COMMENT '供应商名称',
+  `provider_name` varchar(150) NOT NULL COMMENT '供应商名称',
   `our_rebates` decimal(10,2) NOT NULL COMMENT '我方返点',
   `customer_rebates` decimal(10,2) NOT NULL COMMENT '客户返点',
   `account_recharge` decimal(10,2) NOT NULL COMMENT '我方返点',
@@ -196,23 +194,22 @@ CREATE TABLE `recharge_info` (
   `recharge_cost` decimal(10,2) NOT NULL COMMENT '充值成本'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='充值信息表';
 
--- 发票表
+-- 发票记录表
 CREATE TABLE `invoice_record` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '修改时间',
-  `invoice_info_id` datetime NOT NULL COMMENT '发票信息表ID',
+  `invoice_info_id`  int(11) NOT NULL COMMENT '发票信息表ID',
   `type` varchar(50) NOT NULL COMMENT '销售发票|媒介发票',
   `apply_name` varchar(50) NOT NULL COMMENT '申请人姓名',
   `customer_id` int(11) NOT NULL COMMENT '客户ID',
-  `customer_name` int(11) NOT NULL COMMENT '客户名称',
-  `invoice_id` int(11) NOT NULL COMMENT '发票ID',
+  `customer_name` varchar(150) NOT NULL COMMENT '客户名称',
   `money` decimal(10,2) NOT NULL COMMENT '金额',
   `platform` varchar(50) NOT NULL COMMENT '投放平台',
   `pay_time` datetime NOT NULL COMMENT '费用发生日期',
   `invoice_code` varchar(50) NOT NULL COMMENT '发票号',
   `open_time` datetime NOT NULL COMMENT '开票日期'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供应商支付发票表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='发票记录表';
 
 -- 收付款信息导入表
 CREATE TABLE `return_pay_info` (
