@@ -10,15 +10,15 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <bean id="springBean" class="com.ydzx.commons.SpringBean"/>
+    <bean id="springBean" class="com.keepme.commons.SpringBean"/>
 
     <!-- 事务 -->
-    <bean id="mangoTransactionAspect" class="com.ydzx.mango.MangoTransactionAspect"/>
+    <bean id="mangoTransactionAspect" class="com.keepme.mango.MangoTransactionAspect"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     <aop:config expose-proxy="true"/>
 
 
-    <context:component-scan base-package="com.ydzx.service"/>
+    <context:component-scan base-package="com.keepme.service"/>
 
     <bean id="serviceProperties"
           class="org.springframework.beans.factory.config.PropertiesFactoryBean">
@@ -50,7 +50,7 @@
         <property name="packages">
             <list>
                 <!-- 扫描包名 -->
-                <value>com.ydzx.dao</value>
+                <value>com.keepme.dao</value>
             </list>
         </property>
     </bean>

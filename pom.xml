@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>customerManager</groupId>
-    <artifactId>com.ydzx</artifactId>
+    <groupId>com.keepme</groupId>
+    <artifactId>platform</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>com.ydzx Maven Webapp</name>
+    <name>com.keepme Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -147,7 +147,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>com.ydzx</finalName>
+        <finalName>com.keepme</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
