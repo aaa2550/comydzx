@@ -16,7 +16,7 @@ public class BankAccountInfo extends Pojo {
     private Date createTime;  //创建时间
     private Date updateTime;  //修改时间
     private String companyId;  //所属公司
-    private String type;  //我司/客户/供应商
+    private Integer type;  //我司/客户/供应商InvoiceInfoEnum
     private String accountName;  //账户名称
     private String bankName;  //银行名称
     private String accountCode;  //账户号

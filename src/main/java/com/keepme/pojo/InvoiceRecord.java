@@ -16,7 +16,7 @@ public class InvoiceRecord extends Pojo {
     private Date createTime;  //创建时间
     private Date updateTime;  //修改时间
     private Integer invoiceInfoId;  //发票信息表ID
-    private String type;  //销售发票|媒介发票
+    private Integer type;  //销售发票|媒介发票InvoiceRecordEnum
     private String applyName;  //申请人姓名
     private Integer customerId;  //'客户ID
     private String customerName;  //客户名称

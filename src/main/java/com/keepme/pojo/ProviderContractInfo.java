@@ -15,7 +15,7 @@ public class ProviderContractInfo extends Pojo {
     private Integer id;  //
     private Date createTime;  //创建时间
     private Date updateTime;  //修改时间
-    private String customerType;  //直客/子客
+    private Integer customerType;  //直客0/子客1CustomerTypeEnum
     private String businessType;  //业务类型
     private String contractCode;  //合同编号
     private String statisticsShortName;  //统计简称

@@ -3,7 +3,6 @@ package com.keepme.service;
 import com.keepme.dao.RebatesInfoDao;
 import com.keepme.pojo.PageUnder;
 import com.keepme.pojo.RebatesInfo;
-import org.jfaster.mango.annotation.SQL;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

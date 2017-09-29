@@ -1,5 +1,6 @@
 package com.keepme.pojo;
 
+import com.keepme.enums.InvoiceInfoEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +15,7 @@ public class InvoiceInfo extends Pojo {
 
     private Integer id;  //
     private Integer companyId;  //所属公司
-    private String type;  //我司/客户/供应商
+    private Integer type;  //我司/客户/供应商InvoiceInfoEnum
     private String taxpayerCode;  //纳税人识别号
     private String title;  //收票公司
     private String address;  //地址

@@ -13,7 +13,7 @@ public class RebatesInfo extends Pojo {
     private String id;  //
     private String createTime;  //创建时间
     private String updateTime;  //修改时间
-    private String type;  //客户|供应商
+    private Integer type;  //客户0|供应商1 RebatesInfoEnum
     private String startTime;  //返点开始日期
     private String endTime;  //返点结束日期
     private String rebates;  //返点
